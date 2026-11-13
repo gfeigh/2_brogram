@@ -43,10 +43,15 @@ export default function WorkoutCard(props) {
             <h6>Reps</h6>
             <h6 className="weight-input">Max Weight</h6>
             {warmup.map((warmupExercise, warmupIndex) => {
+                const equipment = warmupExercise.equipment
+                const equipmentIcon = equipment == 'Dumbbells' ? <i class="fa-solid fa-dumbbell"/> : equipment == 'Bands' ? <i class="fa-solid fa-grip-lines-vertical"/>: <i class="fa-solid fa-person"/>
                 return (
                     <React.Fragment key={warmupIndex}>
                         <div className='exercise-name'>
                             <p>{warmupIndex + 1}. {warmupExercise.name}</p>
+                            <div className='equipment-icon'>
+                                {equipmentIcon}
+                            </div>
                             <button onClick={() => {
                                 setShowExerciseDescription({
                                     name: warmupExercise.name,
@@ -58,7 +63,7 @@ export default function WorkoutCard(props) {
                         </div>
                         <p className='exercise-info'>{warmupExercise.sets}</p>
                         <p className='exercise-info'>{warmupExercise.reps}</p>
-                        <input className='weight-input' placeholder='N/A' disabled={false} />
+                        <input className='weight-input' placeholder={equipment == "Dumbbells" ? '10' : 'N/A'} disabled={equipment == "Dumbbells" ? false : true} />
                     </React.Fragment>
                 )
             })}
@@ -72,10 +77,15 @@ export default function WorkoutCard(props) {
             <h6>Reps</h6>
             <h6 className="weight-input">Max Weight</h6>
             {workout.map((workoutExercise, wIndex) => {
+                const equipment = workoutExercise.equipment
+                const equipmentIcon = equipment == 'Dumbbells' ? <i class="fa-solid fa-dumbbell"/> : equipment == 'Bands' ? <i class="fa-solid fa-grip-lines-vertical"/>: <i class="fa-solid fa-person"/>
                 return (
                     <React.Fragment key={wIndex}>
                         <div className='exercise-name'>
                             <p>{wIndex + 1}. {workoutExercise.name}</p>
+                            <div className='equipment-icon'>
+                                {equipmentIcon}
+                            </div>
                             <button  onClick={() => {
                                 setShowExerciseDescription({
                                     name: workoutExercise.name,
@@ -89,7 +99,7 @@ export default function WorkoutCard(props) {
                         <p className='exercise-info'>{workoutExercise.reps}</p>
                         <input value={weights[workoutExercise.name] || ''} onChange={(event) => {
                             handleAddWeight(workoutExercise.name, event.target.value)
-                        }}className='weight-input' placeholder='14'  />
+                        }}className='weight-input' placeholder={equipment == "Dumbbells" ? '10' : 'N/A'} disabled={equipment == "Dumbbells" ? false : true} />
                     </React.Fragment>
                 )
             })}
